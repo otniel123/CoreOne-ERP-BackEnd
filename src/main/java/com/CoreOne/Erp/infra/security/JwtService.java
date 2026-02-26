@@ -1,5 +1,6 @@
 package com.CoreOne.Erp.infra.security;
 
+import com.CoreOne.Erp.auth.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -9,9 +10,6 @@ import org.springframework.stereotype.Service;
 import io.jsonwebtoken.security.Keys;
 
 import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.util.Base64;
 import java.util.Date;
 
 @Service

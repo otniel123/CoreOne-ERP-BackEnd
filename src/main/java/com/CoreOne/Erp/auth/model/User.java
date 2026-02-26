@@ -1,10 +1,8 @@
-package com.CoreOne.Erp.infra.security;
+package com.CoreOne.Erp.auth.model;
 
 import com.CoreOne.Erp.infra.enums.Role;
 import jakarta.persistence.*;
-import org.hibernate.annotations.AnyDiscriminatorImplicitValues;
 import org.jspecify.annotations.Nullable;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,6 +33,38 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
+    }
+
     public Role getRole() {
         return role;
     }
@@ -57,4 +87,6 @@ public class User implements UserDetails {
     public String getUsername() {
         return this.username;
     }
+
+
 }
