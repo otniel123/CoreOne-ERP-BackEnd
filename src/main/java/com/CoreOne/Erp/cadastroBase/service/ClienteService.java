@@ -15,17 +15,8 @@ public class ClienteService {
 
 
     public ClienteResponse cadastrarCliente(ClienteRequest clienteRequest){
-        ClienteModel clienteModel = new ClienteModel();
-        clienteModel.setRazaoSocial(clienteRequest.razaoSocial());
-        clienteModel.setTipoPessoa(clienteRequest.tipoPessoa());
-        clienteModel.setDocumento(clienteRequest.documento());
-        clienteModel.setTelefone(clienteRequest.telefone());
-        clienteModel.setEndereco(clienteRequest.endereco());
-        clienteModel.setEmail(clienteRequest.email());
-
-        ClienteModel newCliente = clienteRepository.save(clienteModel);
-        ClienteResponse clienteResponse = new ClienteResponse(newCliente.getRazaoSocial(),
-                newCliente.getDocumento());
-        return clienteResponse;
+        ClienteModel clienteModel = ClienteModel.from(clienteRequest);
+        return ClienteResponse.from(clienteRepository.save(clienteModel));
     }
+
 }

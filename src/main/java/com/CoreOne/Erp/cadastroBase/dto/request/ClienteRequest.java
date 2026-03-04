@@ -1,18 +1,22 @@
 package com.CoreOne.Erp.cadastroBase.dto.request;
 
+import com.CoreOne.Erp.cadastroBase.dto.response.ClienteResponse;
 import com.CoreOne.Erp.cadastroBase.enums.TipoPessoa;
+import com.CoreOne.Erp.cadastroBase.model.ClienteModel;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.SplittableRandom;
 
 public record ClienteRequest(
+
         @NotEmpty(message = "Informe a razão social para fazer o cadastro do cliente.")
         String razaoSocial,
 
-        @NotBlank(message = "Informe o tipo da pessoa para fazer o cadastro do cliente.")
+        @NotNull(message = "Informe o tipo da pessoa para fazer o cadastro do cliente.")
         TipoPessoa tipoPessoa,
 
         @NotBlank

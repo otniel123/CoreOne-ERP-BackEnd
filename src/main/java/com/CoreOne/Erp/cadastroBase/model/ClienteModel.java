@@ -1,9 +1,11 @@
 package com.CoreOne.Erp.cadastroBase.model;
 
+import com.CoreOne.Erp.cadastroBase.dto.request.ClienteRequest;
 import com.CoreOne.Erp.cadastroBase.enums.TipoPessoa;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 
@@ -19,7 +21,7 @@ public class ClienteModel implements Serializable {
 
     private String razaoSocial;
 
-    @NotBlank(message = "Informe o tipo da pessoa para fazer o cadastro do cliente.")
+    @NotNull(message = "Informe o tipo da pessoa para fazer o cadastro do cliente.")
     @Enumerated(EnumType.STRING)
     private TipoPessoa tipoPessoa;
 
@@ -34,6 +36,17 @@ public class ClienteModel implements Serializable {
     @NotBlank(message = "Informe o email para fazer o cadastro do cliente.")
     @Email(message = "Email deve ser válido para cadastrar o cliente.")
     private String email;
+
+    public static ClienteModel from(ClienteRequest request) {
+        ClienteModel cliente = new ClienteModel();
+        cliente.setRazaoSocial(request.razaoSocial());
+        cliente.setTipoPessoa(request.tipoPessoa());
+        cliente.setDocumento(request.documento());
+        cliente.setTelefone(request.telefone());
+        cliente.setEndereco(request.endereco());
+        cliente.setEmail(request.email());
+        return cliente;
+    }
 
     public Long getId() {
         return id;
@@ -51,7 +64,7 @@ public class ClienteModel implements Serializable {
         this.razaoSocial = razaoSocial;
     }
 
-    public @NotBlank(message = "Informe o tipo da pessoa para fazer o cadastro do cliente.") TipoPessoa getTipoPessoa() {
+    public @NotNull(message = "Informe o tipo da pessoa para fazer o cadastro do cliente.") TipoPessoa getTipoPessoa() {
         return tipoPessoa;
     }
 
