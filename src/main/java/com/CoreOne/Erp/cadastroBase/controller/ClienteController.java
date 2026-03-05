@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/cliente")
@@ -23,4 +24,18 @@ public class ClienteController {
         return ResponseEntity.status(201).body(clienteService.cadastrarCliente(clienteRequest));
     }
 
+    @GetMapping("{id}")
+    public ResponseEntity<Optional<ClienteResponse>> buscarClientePorId(@PathVariable("id") Long id){
+        return ResponseEntity.status(200).body(clienteService.listarClientePorId(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ClienteResponse>> buscarCliente(
+            @RequestParam (required = false) String razaoSocial,
+            @RequestParam (required = false) String documento
+    ){
+
+        return ResponseEntity.status(200).body(clienteService.listarCliente(razaoSocial, documento));
+
+    }
 }

@@ -7,6 +7,10 @@ import com.CoreOne.Erp.cadastroBase.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ClienteService {
 
@@ -17,6 +21,29 @@ public class ClienteService {
     public ClienteResponse cadastrarCliente(ClienteRequest clienteRequest){
         ClienteModel clienteModel = ClienteModel.from(clienteRequest);
         return ClienteResponse.from(clienteRepository.save(clienteModel));
+    }
+
+    public List<ClienteResponse> listarCliente( String razaoSocial, String documento){
+        List<ClienteModel> clientes = clienteRepository.findAll();
+
+        List<ClienteResponse> clienteResponses = new ArrayList<>(ClienteResponse.fromList(clientes));
+
+        List<ClienteResponse> listaFiltrada = new ArrayList<>(clienteResponses);
+
+        if (razaoSocial != null){
+            listaFiltrada =
+                    listaFiltrada.stream().filter(clienteResponse -> clienteResponse.razaoSocial().equals(razaoSocial)).toList();
+        }if (documento != null){
+            listaFiltrada =
+                    listaFiltrada.stream().filter(clienteResponse -> clienteResponse.documento().equals(documento)).toList();
+        }
+
+        return listaFiltrada;
+    }
+
+    public Optional<ClienteResponse> listarClientePorId(Long id){
+        return clienteRepository.findById(id)
+                .map(ClienteResponse::from);
     }
 
 }
