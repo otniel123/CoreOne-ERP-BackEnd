@@ -32,10 +32,13 @@ public class ClienteController {
     @GetMapping
     public ResponseEntity<List<ClienteResponse>> buscarCliente(
             @RequestParam (required = false) String razaoSocial,
-            @RequestParam (required = false) String documento
+            @RequestParam (required = false) String documento,
+            @RequestParam (required = false, defaultValue = "0") Integer page,
+            @RequestParam (required = false, defaultValue = "20") Integer size
     ){
 
-        return ResponseEntity.status(200).body(clienteService.listarCliente(razaoSocial, documento));
+        return ResponseEntity.status(200).body(clienteService.listarCliente(razaoSocial,
+                documento, page, size));
 
     }
 }

@@ -5,6 +5,7 @@ import com.CoreOne.Erp.cadastroBase.dto.response.ClienteResponse;
 import com.CoreOne.Erp.cadastroBase.model.ClienteModel;
 import com.CoreOne.Erp.cadastroBase.repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,8 +24,10 @@ public class ClienteService {
         return ClienteResponse.from(clienteRepository.save(clienteModel));
     }
 
-    public List<ClienteResponse> listarCliente( String razaoSocial, String documento){
-        List<ClienteModel> clientes = clienteRepository.findAll();
+    public List<ClienteResponse> listarCliente( String razaoSocial, String documento,
+                                                Integer page, Integer size){
+        List<ClienteModel> clientes =
+                clienteRepository.findAll(PageRequest.of(page, size)).stream().toList();
 
         List<ClienteResponse> clienteResponses = new ArrayList<>(ClienteResponse.fromList(clientes));
 
