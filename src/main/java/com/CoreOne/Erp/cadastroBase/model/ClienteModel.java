@@ -20,22 +20,21 @@ public class ClienteModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String razaoSocial;
 
-    @NotNull(message = "Informe o tipo da pessoa para fazer o cadastro do cliente.")
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private TipoPessoa tipoPessoa;
 
     @Column(nullable = false, unique = true)
     private String documento;
 
-    @NotBlank(message = "Informe o telefone para fazer o cadastro do cliente.")
     private String telefone;
 
     private String endereco;
 
-    @NotBlank(message = "Informe o email para fazer o cadastro do cliente.")
-    @Email(message = "Email deve ser válido para cadastrar o cliente.")
+    @Column(nullable = false)
     private String email;
 
     public static ClienteModel from(ClienteRequest request) {

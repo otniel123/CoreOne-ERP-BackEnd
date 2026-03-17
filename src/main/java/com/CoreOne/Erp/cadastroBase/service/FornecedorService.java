@@ -1,0 +1,24 @@
+package com.CoreOne.Erp.cadastroBase.service;
+
+import com.CoreOne.Erp.cadastroBase.dto.request.FornecedorRequest;
+import com.CoreOne.Erp.cadastroBase.dto.response.FornecedorResponse;
+import com.CoreOne.Erp.cadastroBase.factory.FornecedorFactory;
+import com.CoreOne.Erp.cadastroBase.model.FornecedorModel;
+import com.CoreOne.Erp.cadastroBase.repository.FornecedorRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class FornecedorService {
+
+    @Autowired
+    FornecedorRepository fornecedorRepository;
+
+    @Autowired
+    FornecedorFactory fornecedorFactory;
+
+    public FornecedorResponse cadastrarFornecedor(FornecedorRequest fornecedorRequest){
+        FornecedorModel fornecedorSalvo = this.fornecedorRepository.save(fornecedorFactory.modelFromRequest(fornecedorRequest));
+        return this.fornecedorFactory.responseFromModel(fornecedorSalvo);
+    }
+}
