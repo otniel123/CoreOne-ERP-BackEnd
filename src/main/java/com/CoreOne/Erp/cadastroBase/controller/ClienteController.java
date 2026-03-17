@@ -41,4 +41,19 @@ public class ClienteController {
                 documento, page, size));
 
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<ClienteResponse> atualizarCliente(@Valid @RequestBody ClienteRequest clienteRequest,
+                                                            @PathVariable("id") Long id){
+
+        return ResponseEntity.status(200).body(clienteService.atualizarCliente(clienteRequest, id));
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity deletarCliente(@PathVariable("id") Long id){
+        clienteService.deletarCliente(id);
+
+        return ResponseEntity.status(204).body(null);
+    }
+
 }

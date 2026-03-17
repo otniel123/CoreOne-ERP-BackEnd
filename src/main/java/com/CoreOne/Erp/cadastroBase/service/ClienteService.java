@@ -49,4 +49,28 @@ public class ClienteService {
                 .map(ClienteResponse::from);
     }
 
+    public ClienteResponse atualizarCliente(ClienteRequest clienteRequest, Long id){
+        Optional<ClienteModel> clienteModel = clienteRepository.findById(id);
+
+        if (clienteModel.isEmpty() == true){
+            return null;
+        }
+
+        ClienteModel clienteModelAtualizado = ClienteModel.from(clienteRequest);
+        clienteModelAtualizado.setId(id);
+
+        clienteRepository.save(clienteModelAtualizado);
+
+        ClienteResponse clienteResponse =  ClienteResponse.from(clienteModelAtualizado);
+
+        return clienteResponse;
+    }
+
+    public void deletarCliente(Long id){
+        ClienteModel clienteModel = ClienteModel.fromOptional(clienteRepository.findById(id));
+
+        clienteRepository.delete(clienteModel);
+
+    }
+
 }

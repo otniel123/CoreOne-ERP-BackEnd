@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
+import java.util.Optional;
 
 @Entity
 @Table(name = "clientes")
@@ -45,6 +46,18 @@ public class ClienteModel implements Serializable {
         cliente.setTelefone(request.telefone());
         cliente.setEndereco(request.endereco());
         cliente.setEmail(request.email());
+        return cliente;
+    }
+
+    public static ClienteModel fromOptional(Optional<ClienteModel> optional) {
+        ClienteModel cliente = new ClienteModel();
+        cliente.setId(optional.get().getId());
+        cliente.setRazaoSocial(optional.get().getRazaoSocial());
+        cliente.setTipoPessoa(optional.get().getTipoPessoa());
+        cliente.setDocumento(optional.get().getDocumento());
+        cliente.setTelefone(optional.get().getTelefone());
+        cliente.setEndereco(optional.get().getEndereco());
+        cliente.setEmail(optional.get().getEmail());
         return cliente;
     }
 
