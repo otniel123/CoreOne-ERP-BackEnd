@@ -4,7 +4,11 @@ import com.CoreOne.Erp.cadastroBase.dto.request.FornecedorRequest;
 import com.CoreOne.Erp.cadastroBase.dto.response.FornecedorResponse;
 import com.CoreOne.Erp.cadastroBase.model.FornecedorModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
+@Component
 public class FornecedorFactory {
 
     public FornecedorModel modelFromRequest(FornecedorRequest fornecedorRequest){
