@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "clientes")
+@Table(name = "fornecedores")
 public class FornecedorModel implements Serializable {
 
     private static final long serialVersionUID = 1L;

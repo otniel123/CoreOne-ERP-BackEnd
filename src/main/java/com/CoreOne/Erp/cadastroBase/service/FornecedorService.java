@@ -8,6 +8,9 @@ import com.CoreOne.Erp.cadastroBase.repository.FornecedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class FornecedorService {
 
@@ -20,5 +23,15 @@ public class FornecedorService {
     public FornecedorResponse cadastrarFornecedor(FornecedorRequest fornecedorRequest){
         FornecedorModel fornecedorSalvo = this.fornecedorRepository.save(fornecedorFactory.modelFromRequest(fornecedorRequest));
         return this.fornecedorFactory.responseFromModel(fornecedorSalvo);
+    }
+
+    public List<FornecedorResponse> listarFornecedor(){
+        List<FornecedorModel> fornecedorModelList = fornecedorRepository.findAll();
+        List<FornecedorResponse> fornecedorResponseList = new ArrayList<>();
+
+        for (FornecedorModel f : fornecedorModelList){
+            fornecedorResponseList.add(fornecedorFactory.responseFromModel(f));
+        }
+        return fornecedorResponseList;
     }
 }
