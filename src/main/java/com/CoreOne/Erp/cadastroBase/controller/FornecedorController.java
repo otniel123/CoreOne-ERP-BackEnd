@@ -21,6 +21,10 @@ public class FornecedorController {
     public ResponseEntity<List<FornecedorResponse>> listarFornecedor(){
         return ResponseEntity.status(200).body(this.fornecedorService.listarFornecedor());
     }
+    @GetMapping("{id}")
+    public ResponseEntity<FornecedorResponse> listarFornecedorPorId(@PathVariable("id") Long id){
+        return ResponseEntity.status(200).body(this.fornecedorService.listarFornecedorPorId(id));
+    }
     @PostMapping
     public ResponseEntity<FornecedorResponse> cadastrarFornecedor(@RequestBody @Valid FornecedorRequest fornecedorRequest){
         return ResponseEntity.status(200).body(this.fornecedorService.cadastrarFornecedor(fornecedorRequest));
