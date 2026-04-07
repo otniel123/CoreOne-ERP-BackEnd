@@ -5,6 +5,7 @@ import com.CoreOne.Erp.cadastroBase.dto.response.FornecedorResponse;
 import com.CoreOne.Erp.cadastroBase.factory.FornecedorFactory;
 import com.CoreOne.Erp.cadastroBase.model.FornecedorModel;
 import com.CoreOne.Erp.cadastroBase.repository.FornecedorRepository;
+import com.CoreOne.Erp.exception.EditRecordException;
 import com.CoreOne.Erp.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,19 @@ public class FornecedorService {
             fornecedorResponseList.add(fornecedorFactory.responseFromModel(f));
         }
         return fornecedorResponseList;
+    }
+
+    public FornecedorResponse editarFornecedor(FornecedorRequest fornecedorRequest, Long id) throws Exception {
+        FornecedorModel fornecedorAntigo = fornecedorFactory.modelFromResponse(this.listarFornecedorPorId(id));
+        if (fornecedorAntigo == null){
+            throw new EntityNotFoundException("Supplier not found");
+        }
+        FornecedorModel fornecedorAtualizado = fornecedorFactory.modelFromRequest(fornecedorRequest);
+
+        fornecedorAtualizado.setId(id);
+
+        fornecedorRepository.save(fornecedorAtualizado);
+
+        return fornecedorFactory.responseFromModel(fornecedorAtualizado);
     }
 }

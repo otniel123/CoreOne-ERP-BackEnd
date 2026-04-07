@@ -29,4 +29,11 @@ public class FornecedorController {
     public ResponseEntity<FornecedorResponse> cadastrarFornecedor(@RequestBody @Valid FornecedorRequest fornecedorRequest){
         return ResponseEntity.status(200).body(this.fornecedorService.cadastrarFornecedor(fornecedorRequest));
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<FornecedorResponse> editarFornecedor(@RequestBody @Valid FornecedorRequest fornecedorRequest,
+                                                               @PathVariable("id") Long id) throws Exception {
+        return ResponseEntity.status(200).body(this.fornecedorService.editarFornecedor(fornecedorRequest, id));
+    }
+
 }

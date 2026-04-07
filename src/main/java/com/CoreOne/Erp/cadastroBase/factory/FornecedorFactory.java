@@ -23,6 +23,13 @@ public class FornecedorFactory {
         return fornecedorModel;
     }
 
+    public FornecedorModel modelFromResponse(FornecedorResponse fornecedorResponse){
+        FornecedorModel fornecedorModel = new FornecedorModel(fornecedorResponse.id(),
+                fornecedorResponse.razaoSocial(), fornecedorResponse.cnpj(),
+                fornecedorResponse.email(), fornecedorResponse.telefone(), fornecedorResponse.endereco());
+        return fornecedorModel;
+    }
+
     public FornecedorResponse responseFromModel(FornecedorModel fornecedorModel){
         FornecedorResponse fornecedorResponse = new FornecedorResponse(fornecedorModel.getId(),
                 fornecedorModel.getRazaoSocial(), fornecedorModel.getCnpj(),
