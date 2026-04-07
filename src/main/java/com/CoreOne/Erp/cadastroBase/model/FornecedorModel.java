@@ -4,11 +4,15 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "fornecedores")
+@SQLDelete(sql = "UPDATE fornecedores set deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class FornecedorModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -16,6 +20,9 @@ public class FornecedorModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Column(nullable = false)
+    private boolean deleted = false;
 
     @NotBlank(message = "Informe a razão social")
     private String razaoSocial;

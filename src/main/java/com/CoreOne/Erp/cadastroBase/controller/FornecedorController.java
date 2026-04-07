@@ -18,8 +18,9 @@ public class FornecedorController {
     FornecedorService fornecedorService;
 
     @GetMapping
-    public ResponseEntity<List<FornecedorResponse>> listarFornecedor(){
-        return ResponseEntity.status(200).body(this.fornecedorService.listarFornecedor());
+    public ResponseEntity<List<FornecedorResponse>> listarFornecedor(@RequestParam (required = false, defaultValue = "0") Integer page,
+                                                                     @RequestParam (required = false, defaultValue = "20") Integer size){
+        return ResponseEntity.status(200).body(this.fornecedorService.listarFornecedor(page, size));
     }
     @GetMapping("{id}")
     public ResponseEntity<FornecedorResponse> listarFornecedorPorId(@PathVariable("id") Long id){
@@ -36,4 +37,9 @@ public class FornecedorController {
         return ResponseEntity.status(200).body(this.fornecedorService.editarFornecedor(fornecedorRequest, id));
     }
 
+    @DeleteMapping("{id}")
+    public ResponseEntity deletarFornecedor(@PathVariable("id") Long id){
+        fornecedorService.deletarFornecedor(id);
+        return ResponseEntity.status(200).body(null);
+    }
 }

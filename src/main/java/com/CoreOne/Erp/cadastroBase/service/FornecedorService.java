@@ -8,6 +8,8 @@ import com.CoreOne.Erp.cadastroBase.repository.FornecedorRepository;
 import com.CoreOne.Erp.exception.EditRecordException;
 import com.CoreOne.Erp.exception.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,8 +36,9 @@ public class FornecedorService {
         return fornecedorOptional.map(fornecedor -> this.fornecedorFactory.responseFromModel(fornecedor)).orElseThrow(() -> new EntityNotFoundException("Supplier not found"));
     }
 
-    public List<FornecedorResponse> listarFornecedor(){
-        List<FornecedorModel> fornecedorModelList = fornecedorRepository.findAll();
+    public List<FornecedorResponse> listarFornecedor(Integer page, Integer size){
+        List<FornecedorModel> fornecedorModelList =
+                fornecedorRepository.findAll(PageRequest.of(page, size)).stream().toList();
         List<FornecedorResponse> fornecedorResponseList = new ArrayList<>();
 
         for (FornecedorModel f : fornecedorModelList){
@@ -56,5 +59,10 @@ public class FornecedorService {
         fornecedorRepository.save(fornecedorAtualizado);
 
         return fornecedorFactory.responseFromModel(fornecedorAtualizado);
+    }
+
+    public void deletarFornecedor(Long id){
+        FornecedorModel fornecedorModel = fornecedorFactory.modelFromResponse(this.listarFornecedorPorId(id));
+        fornecedorRepository.delete(fornecedorModel);
     }
 }
