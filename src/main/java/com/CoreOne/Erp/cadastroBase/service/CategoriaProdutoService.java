@@ -44,4 +44,17 @@ public class CategoriaProdutoService {
         return categoriaProdutoModelOptional.map(categoriaProdutoModel -> categoriaProdutoFactory
                 .responseFromModel(categoriaProdutoModel)).orElseThrow(() -> new EntityNotFoundException("Category not found"));
     }
+
+    public CategoriaProdutoResponse editarCategoriaProduto(Long id, CategoriaProdutoRequest categoriaProdutoRequest){
+        return categoriaProdutoRepository.findById(id)
+                .map(categoriaProdutoModel -> {
+                    categoriaProdutoModel.setNomeCategoria(categoriaProdutoRequest.nomeCategoria());
+                    categoriaProdutoModel.setDescricaoCategoria(categoriaProdutoRequest.descricaoCategoria());
+
+                    CategoriaProdutoModel atualizado = categoriaProdutoRepository.save(categoriaProdutoModel);
+
+                    return categoriaProdutoFactory.responseFromModel(atualizado);
+                })
+                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
+    }
 }

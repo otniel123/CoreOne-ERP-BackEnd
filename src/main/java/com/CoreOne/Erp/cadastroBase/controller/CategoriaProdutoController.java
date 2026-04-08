@@ -30,4 +30,10 @@ public class CategoriaProdutoController {
     public ResponseEntity<CategoriaProdutoResponse> listarCategoriaProdutoPorId(@PathVariable("id") Long id){
         return ResponseEntity.status(200).body(categoriaProdutoService.listarCategoriaProdutoPorId(id));
     }
+
+    @PutMapping("{id}")
+    public ResponseEntity<CategoriaProdutoResponse> editarCategoriaProduto(@PathVariable("id") Long id, @RequestBody CategoriaProdutoRequest categoriaProdutoRequest){
+        return ResponseEntity.status(200).body(categoriaProdutoService.editarCategoriaProduto(id,
+                categoriaProdutoRequest));
+    }
 }
