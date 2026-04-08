@@ -36,4 +36,10 @@ public class CategoriaProdutoController {
         return ResponseEntity.status(200).body(categoriaProdutoService.editarCategoriaProduto(id,
                 categoriaProdutoRequest));
     }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity deletarCategoriaProduto(@PathVariable("id") Long id){
+        categoriaProdutoService.deletarCategoriaProduto(id);
+        return ResponseEntity.status(200).body(null);
+    }
 }

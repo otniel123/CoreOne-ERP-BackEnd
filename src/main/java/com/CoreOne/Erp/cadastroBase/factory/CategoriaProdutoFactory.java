@@ -15,6 +15,14 @@ public class CategoriaProdutoFactory {
         return categoriaProdutoModel;
     }
 
+    public CategoriaProdutoModel modelFromResponse(CategoriaProdutoResponse categoriaProdutoResponse){
+        CategoriaProdutoModel categoriaProdutoModel =
+                new CategoriaProdutoModel(categoriaProdutoResponse.id(),
+                        categoriaProdutoResponse.nomeCategoria(),
+                        categoriaProdutoResponse.descricaoCategoria());
+        return categoriaProdutoModel;
+    }
+
     public CategoriaProdutoResponse responseFromModel(CategoriaProdutoModel categoriaProdutoModel){
         CategoriaProdutoResponse categoriaProdutoResponse =
                 new CategoriaProdutoResponse(categoriaProdutoModel.getId(),

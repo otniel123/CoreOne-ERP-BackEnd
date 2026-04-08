@@ -57,4 +57,13 @@ public class CategoriaProdutoService {
                 })
                 .orElseThrow(() -> new EntityNotFoundException("Category not found"));
     }
+
+    public void deletarCategoriaProduto(Long id){
+        CategoriaProdutoModel categoriaProdutoModel =
+                categoriaProdutoFactory.modelFromResponse(this.listarCategoriaProdutoPorId(id));
+
+        categoriaProdutoRepository.delete(categoriaProdutoModel);
+
+        return;
+    }
 }

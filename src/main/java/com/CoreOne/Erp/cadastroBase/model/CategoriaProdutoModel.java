@@ -1,11 +1,15 @@
 package com.CoreOne.Erp.cadastroBase.model;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
 import java.io.Serializable;
 
 @Entity
 @Table(name = "categorias_produto")
+@SQLDelete(sql = "UPDATE categorias_produto set deleted = true WHERE id = ?")
+@SQLRestriction("deleted = false")
 public class CategoriaProdutoModel implements Serializable {
 
     public CategoriaProdutoModel() {
@@ -27,6 +31,9 @@ public class CategoriaProdutoModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @Column(nullable = false)
+    private boolean deleted = false;
 
     @Column(name = "nome_categoria", unique = true, nullable = false)
     private String nomeCategoria;
