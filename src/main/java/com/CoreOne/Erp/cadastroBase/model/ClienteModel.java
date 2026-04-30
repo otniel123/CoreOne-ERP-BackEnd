@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
@@ -14,6 +16,8 @@ import java.util.Optional;
 
 @Entity
 @Table(name = "clientes")
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClienteModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
