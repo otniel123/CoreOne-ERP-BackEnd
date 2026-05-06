@@ -123,7 +123,40 @@ class ClienteServiceTest {
     }
 
     @Test
-    void atualizarCliente() {
+    void atualizarClienteCase1() {
+        ClienteRequest clienteRequest = new ClienteRequest("Teste", TipoPessoa.JURIDICA, "111.222" +
+                ".333-4444", "123456789", "Rua do teste", "teste@email.com");
+        Optional<ClienteModel> clienteModel = Optional.of(ClienteModel.from(clienteRequest));
+        Long id = 1L;
+        clienteModel.get().setId(id);
+
+        when(clienteRepository.findById(id)).thenReturn(clienteModel);
+
+        ClienteResponse clienteResponse = clienteService.atualizarCliente(clienteRequest, id);
+
+        verify(clienteRepository, times(1)).save(any(ClienteModel.class));
+
+        assertEquals(clienteResponse.id(), clienteModel.get().getId());
+        assertEquals(clienteResponse.razaoSocial(), clienteModel.get().getRazaoSocial());
+        assertEquals(clienteResponse.tipoPessoa(), clienteModel.get().getTipoPessoa());
+        assertEquals(clienteResponse.documento(), clienteModel.get().getDocumento());
+        assertEquals(clienteResponse.telefone(), clienteModel.get().getTelefone());
+        assertEquals(clienteResponse.endereco(), clienteModel.get().getEndereco());
+        assertEquals(clienteResponse.email(), clienteModel.get().getEmail());
+    }
+
+    @Test
+    void atualizarClienteCase2() {
+        ClienteRequest clienteRequest = new ClienteRequest("Teste", TipoPessoa.JURIDICA, "111.222" +
+                ".333-4444", "123456789", "Rua do teste", "teste@email.com");
+        Long id = 1L;
+
+        when(clienteRepository.findById(id)).thenReturn(Optional.empty());
+
+        ClienteResponse clienteResponse = clienteService.atualizarCliente(clienteRequest,id);
+
+        verify(clienteRepository, never()).save(any());
+        assertNull(clienteResponse);
     }
 
     @Test
