@@ -83,6 +83,7 @@ class ClienteServiceTest {
     }
 
     @Test
+    @DisplayName("Should list customers successfully")
     void listarCliente() {
         List<ClienteModel> clienteModelList = new ArrayList<>(List.of(
                 new ClienteModel(1L, "Otniel Marques",
@@ -104,6 +105,7 @@ class ClienteServiceTest {
     }
 
     @Test
+    @DisplayName("Should list customer by id successfully")
     void listarClientePorId() {
         ClienteModel clienteModel = new ClienteModel(1L, "Teste", TipoPessoa.JURIDICA, "111.222" +
                 ".333-4444", "123456789", "Rua do teste", "teste@email.com");
@@ -123,6 +125,7 @@ class ClienteServiceTest {
     }
 
     @Test
+    @DisplayName("Should update customer successfully")
     void atualizarClienteCase1() {
         ClienteRequest clienteRequest = new ClienteRequest("Teste", TipoPessoa.JURIDICA, "111.222" +
                 ".333-4444", "123456789", "Rua do teste", "teste@email.com");
@@ -146,6 +149,7 @@ class ClienteServiceTest {
     }
 
     @Test
+    @DisplayName("Should not update customer")
     void atualizarClienteCase2() {
         ClienteRequest clienteRequest = new ClienteRequest("Teste", TipoPessoa.JURIDICA, "111.222" +
                 ".333-4444", "123456789", "Rua do teste", "teste@email.com");
@@ -160,6 +164,7 @@ class ClienteServiceTest {
     }
 
     @Test
+    @DisplayName("Should delete legal entity successfully")
     void deletarCliente() {
         ClienteModel clienteModel = new ClienteModel(1L, "Teste", TipoPessoa.JURIDICA, "111.222" +
                 ".333-4444", "123456789", "Rua do teste", "teste@email.com");
