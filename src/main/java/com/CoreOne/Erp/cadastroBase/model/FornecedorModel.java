@@ -97,4 +97,17 @@ public class FornecedorModel implements Serializable {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
+
+    @Override
+    public String toString() {
+        return "FornecedorModel{" +
+                "id=" + id +
+                ", deleted=" + deleted +
+                ", razaoSocial='" + razaoSocial + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", email='" + email + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", endereco='" + endereco + '\'' +
+                '}';
+    }
 }
