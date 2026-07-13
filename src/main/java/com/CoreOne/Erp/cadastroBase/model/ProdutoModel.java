@@ -33,6 +33,17 @@ public class ProdutoModel implements Serializable {
     @JoinColumn(name = "categoria_id", nullable = false)
     private CategoriaProdutoModel categoriaProdutoModel;
 
+    public ProdutoModel(Long id, String nome, String sku, String descricao, String unidadeMedida, String precoCusto, String precoVenda, CategoriaProdutoModel categoriaProdutoModel) {
+        this.id = id;
+        this.nome = nome;
+        this.sku = sku;
+        this.descricao = descricao;
+        this.unidadeMedida = unidadeMedida;
+        this.precoCusto = precoCusto;
+        this.precoVenda = precoVenda;
+        this.categoriaProdutoModel = categoriaProdutoModel;
+    }
+
     public CategoriaProdutoModel getCategoriaProdutoModel() {
         return categoriaProdutoModel;
     }

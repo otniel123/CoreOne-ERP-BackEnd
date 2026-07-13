@@ -5,5 +5,9 @@ public record ProdutoResponse(
         String nome,
         String sku,
         String descricao,
-        Long idCategoria) {
+        String unidadeMedida,
+        String precoCusto,
+        String precoVenda,
+        Long idCategoria
+        ) {
 }
