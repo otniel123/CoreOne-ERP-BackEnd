@@ -2,8 +2,10 @@ package com.CoreOne.Erp.cadastroBase.service;
 
 import com.CoreOne.Erp.cadastroBase.dto.response.ProdutoResponse;
 import com.CoreOne.Erp.cadastroBase.factory.ProdutoFactory;
+import com.CoreOne.Erp.cadastroBase.model.CategoriaProdutoModel;
 import com.CoreOne.Erp.cadastroBase.model.FornecedorModel;
 import com.CoreOne.Erp.cadastroBase.model.ProdutoModel;
+import com.CoreOne.Erp.cadastroBase.repository.CategoriaProdutoRepository;
 import com.CoreOne.Erp.cadastroBase.repository.ProdutoRepository;
 import com.CoreOne.Erp.exception.EntityNotFoundException;
 import org.apache.coyote.Response;
@@ -19,6 +21,9 @@ public class ProdutoService {
 
     @Autowired
     ProdutoRepository produtoRepository;
+
+    @Autowired
+    CategoriaProdutoRepository categoriaProdutoRepository;
 
     @Autowired
     ProdutoFactory produtoFactory;
@@ -40,6 +45,11 @@ public class ProdutoService {
     }
 
     public void deletarProduto(Long id){
-        FornecedorModel fornecedorModel = this.produtoFactory.responseFromModel()
+        ProdutoResponse produtoResponse = this.listarProdutoPorId(id);
+        CategoriaProdutoModel categoriaProdutoModel =
+                categoriaProdutoRepository.findById(produtoResponse.idCategoria()).orElseThrow(() -> new EntityNotFoundException("Category not found: " + produtoResponse.idCategoria()));
+        ProdutoModel produtoModel =
+                this.produtoFactory.modelFromResponse(produtoResponse, categoriaProdutoModel);
+        this.produtoRepository.delete(produtoModel);
     }
 }
